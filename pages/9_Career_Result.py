@@ -2,19 +2,57 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
-import mysql.connector
+import sqlite3
 
-
-conn = mysql.connector.connect(
-
-host="localhost",
-user="root",
-password="Albin@1230",
-database="career_ai"
-
+conn = sqlite3.connect(
+    "career_data.db",
+    check_same_thread=False
 )
 
 cursor = conn.cursor()
+
+cursor.execute("""
+
+CREATE TABLE IF NOT EXISTS results(
+
+id INTEGER PRIMARY KEY AUTOINCREMENT,
+
+analytical REAL,
+numerical REAL,
+creativity REAL,
+communication REAL,
+social REAL,
+persistence REAL,
+attention REAL,
+
+math INTEGER,
+physics INTEGER,
+chemistry INTEGER,
+biology INTEGER,
+cs INTEGER,
+
+it_interest INTEGER,
+health_interest INTEGER,
+engineering_interest INTEGER,
+creative_interest INTEGER,
+
+parent_field TEXT,
+hobbies TEXT,
+
+top_career TEXT,
+match_score REAL,
+
+topic_score REAL,
+demand_score REAL,
+boost_score REAL,
+
+created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+
+)
+
+""")
+
+conn.commit()
 
 # --------------------------------
 # CHECK IF ALL TESTS COMPLETED
@@ -445,6 +483,7 @@ if "saved" not in st.session_state:
 
 
 if not st.session_state.saved:
+
     if st.button("💾 Save Result to Database"):
 
         cursor.execute("""
@@ -482,12 +521,12 @@ if not st.session_state.saved:
 
         )
 
-        VALUES (%s,%s,%s,%s,%s,%s,%s,
-            %s,%s,%s,%s,%s,
-            %s,%s,%s,%s,
-            %s,%s,
-            %s,%s,
-            %s,%s,%s)
+        VALUES (?,?,?,?,?,?,?,
+                ?,?,?,?,?,
+                ?,?,?,?,
+                ?,?,
+                ?,?,
+                ?,?,?)
 
         """,(
 
@@ -536,5 +575,4 @@ else:
 if st.button("🔄 New Student Data"):
 
     st.session_state.clear()
-
     st.switch_page("main_app.py")
