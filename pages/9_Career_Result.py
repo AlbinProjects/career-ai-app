@@ -3,6 +3,7 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 import sqlite3
+import os
 
 conn = sqlite3.connect(
     "career_data.db",
@@ -566,6 +567,56 @@ if not st.session_state.saved:
         st.success("✅ Data saved successfully!")
 
         st.session_state.saved = True
+        file = "student_dataset.csv"
+
+        new_data = {
+
+        "analytical":analytical,
+        "numerical":numerical,
+        "creativity":creativity,
+        "communication":communication,
+        "social":social,
+        "persistence":persistence,
+        "attention":attention,
+
+        "math":math,
+        "physics":physics,
+        "chemistry":chemistry,
+        "biology":biology,
+        "cs":cs,
+
+        "it_interest":it_interest,
+        "health_interest":health_interest,
+        "engineering_interest":engineering_interest,
+        "creative_interest":creative_interest,
+
+        "parent_field":parent_field,
+        "hobbies":hobby_text,
+
+        "top_career":best_career,
+        "match_score":best_score,
+
+        "topic_score":best_topic,
+        "demand_score":best_demand,
+        "boost_score":best_boost
+
+        }
+
+        df_new = pd.DataFrame([new_data])
+
+        if os.path.exists(file):
+
+            df_old = pd.read_csv(file)
+
+            df_all = pd.concat([df_old,df_new],ignore_index=True)
+
+        else:
+
+            df_all = df_new
+
+        df_all.to_csv(file,index=False)
+
+        st.success("✅ Data saved successfully!")
 
 else:
 
@@ -576,3 +627,11 @@ if st.button("🔄 New Student Data"):
 
     st.session_state.clear()
     st.switch_page("main_app.py")
+
+df = pd.read_csv("student_dataset.csv")
+
+st.download_button(
+"Download Dataset",
+df.to_csv(index=False),
+"career_dataset.csv"
+)
