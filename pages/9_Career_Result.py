@@ -627,8 +627,10 @@ if st.button("🔄 New Student Data"):
 
     st.session_state.clear()
     st.switch_page("main_app.py")
-
-df = pd.read_csv("student_dataset.csv")
+try:
+    df = pd.read_csv("student_dataset.csv")
+except:
+    st.success("No data")
 
 st.download_button(
 "Download Dataset",
