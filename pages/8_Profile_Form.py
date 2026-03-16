@@ -1,5 +1,26 @@
 import streamlit as st
 
+import streamlit as st
+
+st.set_page_config(layout="wide")
+
+st.markdown("""
+<style>
+
+/* Disable clicking on sidebar page navigation */
+[data-testid="stSidebarNav"] a {
+    pointer-events: none;
+    cursor: default;
+}
+
+/* Optional: make it look disabled */
+[data-testid="stSidebarNav"] a:hover {
+    background-color: transparent;
+}
+
+</style>
+""", unsafe_allow_html=True)
+
 st.title("📋 Personal & Academic Profile")
 
 st.write("🎯 Fill this information for career recommendations.")
