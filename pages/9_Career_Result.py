@@ -5,6 +5,25 @@ import matplotlib.pyplot as plt
 import sqlite3
 import os
 
+st.set_page_config(layout="wide")
+
+st.markdown("""
+<style>
+
+/* Disable clicking on sidebar page navigation */
+[data-testid="stSidebarNav"] a {
+    pointer-events: none;
+    cursor: default;
+}
+
+/* Optional: make it look disabled */
+[data-testid="stSidebarNav"] a:hover {
+    background-color: transparent;
+}
+
+</style>
+""", unsafe_allow_html=True)
+
 conn = sqlite3.connect(
     "career_data.db",
     check_same_thread=False
