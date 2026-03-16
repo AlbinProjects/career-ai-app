@@ -1,12 +1,23 @@
 import streamlit as st
 
-hide_nav = """
-<style>
-[data-testid="stSidebarNav"] {display: none;}
-</style>
-"""
+st.set_page_config(layout="wide")
 
-st.markdown(hide_nav, unsafe_allow_html=True)
+st.markdown("""
+<style>
+
+/* Disable clicking on sidebar page navigation */
+[data-testid="stSidebarNav"] a {
+    pointer-events: none;
+    cursor: default;
+}
+
+/* Optional: make it look disabled */
+[data-testid="stSidebarNav"] a:hover {
+    background-color: transparent;
+}
+
+</style>
+""", unsafe_allow_html=True)
 
 st.set_page_config(page_title="AI Career Intelligence System",layout="wide")
 
