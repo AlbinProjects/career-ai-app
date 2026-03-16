@@ -1,5 +1,13 @@
 import streamlit as st
 
+hide_nav = """
+<style>
+[data-testid="stSidebarNav"] {display: none;}
+</style>
+"""
+
+st.markdown(hide_nav, unsafe_allow_html=True)
+
 st.set_page_config(page_title="AI Career Intelligence System",layout="wide")
 
 st.title("🎓 AI Career Intelligence System")
