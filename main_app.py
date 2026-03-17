@@ -1,5 +1,6 @@
 import streamlit as st
 
+st.title("Home")
 st.set_page_config(layout="wide")
 
 st.markdown("""
